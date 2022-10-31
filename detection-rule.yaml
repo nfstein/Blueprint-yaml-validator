@@ -7,7 +7,7 @@ source:
     git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy"
     git_branch: master
 description: "Roks configuration to be used for testing"
-#resource_group: Default
+resource_group: Default
 tags:
   - "blueprint:Tor-Dev"
 location: us-south
@@ -76,7 +76,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/vpc"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: VPC_ZONE
         value: $blueprint.vpc_zone
       - name: VPC_NAME
@@ -106,7 +106,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/vpc_bastion"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: VPC_ZONE
         value: $blueprint.vpc_zone
       - name: VPC_NAME
@@ -146,7 +146,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/pvs"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: PVS_LOCATION
         value: $blueprint.pvs_location
       - name: PVS_RESOURCE_GROUP
@@ -188,7 +188,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/createconnections"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: PVS_LOCATION
         value: $blueprint.pvs_location
       - name: PVS_RESOURCE_GROUP
@@ -239,7 +239,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/pvs_sap"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: PVS_LOCATION
         value: $blueprint.pvs_location
       - name: PVS_RESOURCE_GROUP
@@ -283,7 +283,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/pvs_sap"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: PVS_LOCATION
         value: $blueprint.pvs_location
       - name: PVS_RESOURCE_GROUP
@@ -333,7 +333,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/vpc_bastion_init_sles"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: SSH_PRIVATE_KEY
         value: $blueprint.ssh_private_key
       - name: BASTION_PUBLIC_IP
@@ -362,7 +362,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/pvs_sap_init_sles"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: BASTION_PUBLIC_IP
         value: $blueprint.bastion_public_ip
       - name: HOST_PRIVATE_IP
@@ -401,7 +401,7 @@ modules:
       git:
         git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy/tree/master/modules/pvs_sap_init_sles"
         git_branch: "master"
-      inputs:
+    inputs:
       - name: BASTION_PUBLIC_IP
         value: $blueprint.bastion_public_ip
       - name: HOST_PRIVATE_IP

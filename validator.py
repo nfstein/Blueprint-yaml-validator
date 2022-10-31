@@ -7,6 +7,10 @@ validators = DefaultValidators.copy()  # This is a dictionary
 schema = yamale.make_schema('./schema.yaml', validators=validators)
 
 data = yamale.make_data('./detection-rule.yaml')
+# data = yamale.make_data('./test-rule1.yaml')
+# data = yamale.make_data('./test-rule2.yaml')
+# data = yamale.make_data('./test-rule3.yaml')
+
 
 try:
     yamale.validate(schema, data)

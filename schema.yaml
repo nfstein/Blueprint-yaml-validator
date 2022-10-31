@@ -1,26 +1,30 @@
 name: str()
 schema_version: str(required=False)
 type: str()
-description: str()
-tags: list(str())
+description: str(required=False)
+resource_group: str(required=False)
+tags: list(str(),required=False)
 location: str(required=False)
 inputs: list(include('inputs'))
-source: include('source')
+outputs: list(include('inputs'),required=False)
+source: include('source',required=False)
 settings: list(include('inputs'))
 modules: list(include('modules'))
 ---
 modules:
   module_type: str()
   name: str()
-  layer: str()
+  layer: str(required=False)
   source: include('source')
-  injectors: list(include('injectors',required=False))
+  injectors: list(include('injectors'),required=False)
+  inputs: list(include('inputs'),required=False)
   outputs: list(include('inputs'),required=False)
+  settings: list(include('inputs'),required=False)
+  tags: str(required=False)
 ---
 source:
   source_type: str(required=False)
   git: include('git')
-  inputs: list(include('inputs'),required=False)
 ---
 injectors:
   tft_git_url: str()
@@ -29,8 +33,9 @@ injectors:
   tft_parameters: list(include('inputs'))
 ---
 git:
-  git_repo_url: str()
+  git_repo_url: str(required=False)
   git_branch: str(required=False)
+  git_repo_folder: str(required=False)
 ---
 inputs:
   name: str(required=False)
