@@ -1,0 +1,39 @@
+name: str()
+schema_version: str(required=False)
+type: str()
+description: str()
+tags: list(str())
+location: str(required=False)
+inputs: list(include('inputs'))
+source: include('source')
+settings: list(include('inputs'))
+modules: list(include('modules'))
+---
+modules:
+  module_type: str()
+  name: str()
+  layer: str()
+  source: include('source')
+  injectors: list(include('injectors',required=False))
+  outputs: list(include('inputs'),required=False)
+---
+source:
+  source_type: str(required=False)
+  git: include('git')
+  inputs: list(include('inputs'),required=False)
+---
+injectors:
+  tft_git_url: str()
+  tft_name: str()
+  injection_type: str()
+  tft_parameters: list(include('inputs'))
+---
+git:
+  git_repo_url: str()
+  git_branch: str(required=False)
+---
+inputs:
+  name: str(required=False)
+  value: any(required=False)
+  type: str(required=False)
+  default: any(required=False)
