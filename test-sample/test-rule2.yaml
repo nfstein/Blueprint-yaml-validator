@@ -1,6 +1,5 @@
 name: "Roks Landing Zone "
 schema_version: "1.0.0"
-type: "blueprint"
 description: "Roks landingzone configuration"
 tags:
   - "blueprint:roks-landing-zone"

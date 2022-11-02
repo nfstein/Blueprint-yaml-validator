@@ -1,11 +1,6 @@
 name: "Roks Blueprint"
 schema_version: "1.0.0"
 type: "blueprint"
-source:
-  source_type: github
-  git:
-    git_repo_url: "https://github.ibm.com/SAP-Automation/powervs-sap-deploy"
-    git_branch: master
 description: "Roks configuration to be used for testing"
 resource_group: Default
 tags:
@@ -63,8 +58,8 @@ inputs:
   - name: hana_disks_configuration
   - name: nw_disks_configuration
 settings:
-  - name: TF_VERSION
-    value: 0.13
+  # - name: TF_VERSION
+  #   value: 0.13
   - name: TF_LOG
     value: "DEBUG"
 modules:

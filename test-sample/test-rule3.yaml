@@ -1,6 +1,5 @@
 name: "Blueprint FVT"
 schema_version: "1.0.0"
-type: "blueprint"
 source:
   source_type: github
   git:
