@@ -48,19 +48,26 @@ modules:
       - name: logdna_name
         value: $blueprint.logdna_name
         type: list(string)
-        default: '[]'
+        default: 'just a string[]'
       - name: logdna_region
         value: $blueprint.region
         type: list(string)
+        default: '[]'
       - name: provision_at
         value: $blueprint.provision_at
-      - name: at_name
-        value: $blueprint.at_name
+        type: list(string)
+        default: []
       - name: at_region
         value: $blueprint.region
         type: list(string)
+      - name: at_name
+        value: $blueprint.at_name
+        type: boolean
+        default: true
       - name: resource_group_id
         value: $module.bp-iks-resource-group.outputs.resource_group_id
+        type: boolean
+        default: 'true'
     outputs:
       - name: logdna_crn
       - name: logdna_id
