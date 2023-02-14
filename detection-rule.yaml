@@ -29,14 +29,14 @@ modules:
     inputs:
       - name: provision
         value: $blueprint.provision_rg
-        description: some bullshit
+        description: inputs allow descriptions
         type: string
       - name: name
         value: $blueprint.resource_group_name
         type: list
     outputs:
       - name: resource_group_name
-        description: some bullshit
+        description: outputs do not, leave this to prevent creation of bp
       - name: resource_group_id
   - name: bp-iks-observability
     module_type: terraform
@@ -60,10 +60,11 @@ modules:
       - name: provision_at2
         value: $blueprint.provision_at
         type: list(string)
-        default: string[]
+        default: []string
       - name: at_region
         value: $blueprint.region
         type: list(string)
+        default: string[]
       - name: at_name
         value: $blueprint.at_name
         type: boolean
