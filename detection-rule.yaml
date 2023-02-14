@@ -1,6 +1,6 @@
 name: IKS-App-blueprint
 type: 'blueprint'
-schema_version: '1.0'
+schema_version: '1.0.0'
 description: 'Deploy full stack of IKS and nginx application'
 inputs:
   - name: resource_group_name
