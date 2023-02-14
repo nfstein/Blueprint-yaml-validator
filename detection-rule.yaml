@@ -144,6 +144,7 @@ modules:
     inputs:
       - name: PVS_LOCATION
         value: $blueprint.pvs_location
+        default: []
       - name: PVS_RESOURCE_GROUP
         value: $blueprint.pvs_resource_group
       - name: PVS_SERVICE_NAME
