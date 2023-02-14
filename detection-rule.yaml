@@ -1,128 +1,62 @@
-name: IKS-App-blueprint
-type: 'blueprint'
-schema_version: '1.0.0'
-description: 'Deploy full stack of IKS and nginx application'
+name: "Blueprint Basic Example"
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Cloud-Schematics/vscode-blueprint-schema/master/blueprint_schema.json
+type: "blueprint"
+schema_version: "1.0.0"
+description: "Simple blueprint to demonstrate module linking"
 inputs:
-  - name: resource_group_name
-  - name: provision_rg
-  - name: provision_at
-  - name: region
-  - name: logdna_name
-  - name: at_name
-  - name: cos_instance_name
-  - name: cluster_name
-  - name: iks_kube_version
-outputs:
-  - name: schematics-app-url
-    value: $module.bp-iks-blueprint-app.outputs.blueprint_app_url
-settings: # Master settings for all workitems
+  - name: x
+settings:
   - name: TF_VERSION
-    #type: string default type string
     value: 1.0
 modules:
-  - name: bp-iks-resource-group
-    module_type: terraform
-    source:
-      source_type: github
-      git:
-        git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-ResourceGroup'
-    inputs:
-      - name: provision
-        value: $blueprint.provision_rg
-        description: inputs allow descriptions
-        type: string
-      - name: name
-        value: $blueprint.resource_group_name
-        type: list
-    outputs:
-      - name: resource_group_name
-        description: outputs do not, leave this to prevent creation of bp
-      - name: resource_group_id
-  - name: bp-iks-observability
-    module_type: terraform
-    source:
-      source_type: github
-      git:
-        git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-Observability'
-    inputs:
-      - name: logdna_name
-        value: $blueprint.logdna_name
-        type: list(string)
-        default: 'just a string[]'
-      - name: logdna_region
-        value: $blueprint.region
-        type: list(string)
-        default: '[]'
-      - name: provision_at
-        value: $blueprint.provision_at
-        type: list(string)
-        default: []
-      - name: provision_at2
-        value: $blueprint.provision_at
-        type: list(string)
-      - name: at_region
-        value: $blueprint.region
-        type: list(string)
-      - name: at_name
-        value: $blueprint.at_name
-        type: boolean
-        default: true
-      - name: resource_group_id
-        value: $module.bp-iks-resource-group.outputs.resource_group_id
-        type: boolean
-        default: 'true'
-    outputs:
-      - name: logdna_crn
-      - name: logdna_id
-      - name: at_crn
-      - name: at_id
-  - name: bp-iks-cos-storage
-    module_type: terraform
-    source:
-      source_type: github
-      git:
-        git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-Storage'
-    inputs:
-      - name: cos_instance_name
-        value: $blueprint.cos_instance_name
-      - name: cos_single_site_loc
-        value: 'ams03'
-      - name: resource_group_id
-        value: $module.bp-iks-resource-group.outputs.resource_group_id
-      - name: activity_tracker_id
-        value: $module.bp-iks-observability.outputs.at_id
-    outputs:
-      - name: cos_id
-      - name: cos_crn
-  - name: bp-iks-vpc-gen2-cluster
-    module_type: terraform
-    source:
-      source_type: github
-      git:
-        git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-vpc-gen2-cluster-multizone'
-    inputs:
-      - name: cluster_name
-        value: $blueprint.cluster_name
-      - name: cluster_region
-        value: $blueprint.region
-      - name: kube_version
-        value: $blueprint.iks_kube_version
-      - name: resource_group_id
-        value: $module.bp-iks-resource-group.outputs.resource_group_id
-      - name: cos_instance_crn
-        value: $module.bp-iks-cos-storage.outputs.cos_crn
-    outputs:
-      - name: cluster_id
-  - name: bp-iks-blueprint-app
-    module_type: terraform
-    source:
-      source_type: github
-      git:
-        git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-app-deploy'
-    inputs:
-      - name: cluster_id
-        value: $module.bp-iks-vpc-gen2-cluster.outputs.cluster_id
-      - name: resource_group
-        value: $module.bp-iks-resource-group.outputs.resource_group_name
-    outputs:
-      - name: blueprint_app_url
+ - name: ibm-watson-studio
+   module_type: terraform
+   source:
+     source_type: github
+     git:
+       git_repo_url: "https://github.com/terraform-ibm-modules/terraform-ibm-toolkit-watson-studio"
+   settings:
+     - name: TF_VERSION
+       value: "1.2"
+   inputs:
+     - name: resource_group_name
+       value: $blueprint.x
+       description: Resource group where the cluster has been provisioned.
+       type: string
+     - name: resource_location
+       value: $blueprint.x
+       description: Geographic location of the resource (e.g. us-south, us-east)
+       type: string
+     - name: tags
+       value: $blueprint.x
+       description: Tags that should be applied to the service
+       type: list(string)
+       default: []
+     - name: name_prefix
+       value: $blueprint.x
+       description: The prefix name for the service. If not provided it will default to
+         the resource group name
+       type: string
+     - name: plan
+       value: $blueprint.x
+       description: The type of plan the service instance should run under (lite,
+         professional-v1)
+       type: string
+       default: professional-v1
+     - name: name
+       value: $blueprint.x
+       description: The name of the Watson Studio instance that will be provisioned
+       type: string
+     - name: label
+       value: $blueprint.x
+       description: The label of the resource used to build the name along with the
+         name_prefix.
+       type: string
+       default: studio
+   outputs:
+     - name: id
+     - name: name
+     - name: crn
+     - name: location
+     - name: service
+     - name: label
