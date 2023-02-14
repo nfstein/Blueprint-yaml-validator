@@ -61,10 +61,8 @@ modules:
         type: list(string)
       - name: resource_group_id
         value: $module.bp-iks-resource-group.outputs.resource_group_id
-        metatype: ibm_cloud_resource_group_id
     outputs:
       - name: logdna_crn
-        metatype: ibm_cloud_logdna_crn
       - name: logdna_id
       - name: at_crn
       - name: at_id
@@ -85,9 +83,7 @@ modules:
         value: $module.bp-iks-observability.outputs.at_id
     outputs:
       - name: cos_id
-        metatype: ibm_cloud_cos_instance_id
       - name: cos_crn
-        metatype: ibm_cloud_cos_instance_crn
   - name: bp-iks-vpc-gen2-cluster
     module_type: terraform
     source:
