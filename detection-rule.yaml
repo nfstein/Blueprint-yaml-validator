@@ -52,8 +52,10 @@ modules:
         value: $blueprint.logdna_name
         metatype: ibm_cloud_logdna_name
         type: list(string)
+        default: []
       - name: logdna_region
         value: $blueprint.region
+        type: list(string)
       - name: provision_at
         value: $blueprint.provision_at
       - name: at_name
