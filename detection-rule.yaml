@@ -64,7 +64,6 @@ modules:
       - name: at_region
         value: $blueprint.region
         type: list(string)
-        default: -
       - name: at_name
         value: $blueprint.at_name
         type: boolean
