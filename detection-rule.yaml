@@ -30,9 +30,11 @@ modules:
       - name: provision
         value: $blueprint.provision_rg
         description: some bullshit
+        type: string
       - name: name
         value: $blueprint.resource_group_name
         metatype: ibm_cloud_resource_group_name
+        type: list
     outputs:
       - name: resource_group_name
         metatype: ibm_cloud_resource_group_name
@@ -49,6 +51,7 @@ modules:
       - name: logdna_name
         value: $blueprint.logdna_name
         metatype: ibm_cloud_logdna_name
+        type: list(string)
       - name: logdna_region
         value: $blueprint.region
       - name: provision_at
