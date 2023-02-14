@@ -57,6 +57,10 @@ modules:
         value: $blueprint.provision_at
         type: list(string)
         default: []
+      - name: provision_at2
+        value: $blueprint.provision_at
+        type: list(string)
+        default: []string
       - name: at_region
         value: $blueprint.region
         type: list(string)
