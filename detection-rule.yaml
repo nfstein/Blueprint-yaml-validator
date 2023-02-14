@@ -48,7 +48,7 @@ modules:
       - name: logdna_name
         value: $blueprint.logdna_name
         type: list(string)
-        default: []
+        default: '[]'
       - name: logdna_region
         value: $blueprint.region
         type: list(string)
