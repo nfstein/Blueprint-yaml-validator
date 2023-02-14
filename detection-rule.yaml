@@ -23,8 +23,8 @@ modules:
   - name: bp-iks-resource-group
     module_type: terraform
     source:
+      source_type: github
       git:
-        source_type: github
         git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-ResourceGroup'
     inputs:
       - name: provision
@@ -33,24 +33,20 @@ modules:
         type: string
       - name: name
         value: $blueprint.resource_group_name
-        metatype: ibm_cloud_resource_group_name
         type: list
     outputs:
       - name: resource_group_name
-        metatype: ibm_cloud_resource_group_name
         description: some bullshit
       - name: resource_group_id
-        metatype: ibm_cloud_resource_group_id
   - name: bp-iks-observability
     module_type: terraform
     source:
+      source_type: github
       git:
-        source_type: github
         git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-Observability'
     inputs:
       - name: logdna_name
         value: $blueprint.logdna_name
-        metatype: ibm_cloud_logdna_name
         type: list(string)
         default: []
       - name: logdna_region
@@ -70,29 +66,23 @@ modules:
       - name: logdna_crn
         metatype: ibm_cloud_logdna_crn
       - name: logdna_id
-        metatype: ibm_cloud_logdna_id
       - name: at_crn
-        metatype: ibm_cloud_activity_tracker_crn
       - name: at_id
-        metatype: ibm_cloud_activity_tracker_id
   - name: bp-iks-cos-storage
     module_type: terraform
     source:
+      source_type: github
       git:
-        source_type: github
         git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-Storage'
     inputs:
       - name: cos_instance_name
         value: $blueprint.cos_instance_name
-        metatype: ibm_cloud_cos_instance_name
       - name: cos_single_site_loc
         value: 'ams03'
       - name: resource_group_id
         value: $module.bp-iks-resource-group.outputs.resource_group_id
-        metatype: ibm_cloud_resource_group_id
       - name: activity_tracker_id
         value: $module.bp-iks-observability.outputs.at_id
-        metatype: ibm_cloud_activity_tracker_id
     outputs:
       - name: cos_id
         metatype: ibm_cloud_cos_instance_id
@@ -101,39 +91,32 @@ modules:
   - name: bp-iks-vpc-gen2-cluster
     module_type: terraform
     source:
+      source_type: github
       git:
-        source_type: github
         git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-vpc-gen2-cluster-multizone'
     inputs:
       - name: cluster_name
         value: $blueprint.cluster_name
-        metatype: ibm_cloud_iks_cluster_name
       - name: cluster_region
         value: $blueprint.region
-        metatype: ibm_cloud_iks_cluster_region
       - name: kube_version
         value: $blueprint.iks_kube_version
       - name: resource_group_id
         value: $module.bp-iks-resource-group.outputs.resource_group_id
-        metatype: ibm_cloud_resource_group_id
       - name: cos_instance_crn
         value: $module.bp-iks-cos-storage.outputs.cos_crn
-        metatype: ibm_cloud_cos_instance_crn
     outputs:
       - name: cluster_id
-        metatype: ibm_cloud_iks_cluster_id
   - name: bp-iks-blueprint-app
     module_type: terraform
     source:
+      source_type: github
       git:
-        source_type: github
         git_repo_url: 'https://github.ibm.com/gvalenc/environment-aio-iks-app-us/tree/master/IBM-app-deploy'
     inputs:
       - name: cluster_id
         value: $module.bp-iks-vpc-gen2-cluster.outputs.cluster_id
-        metatype: ibm_cloud_iks_cluster_id
       - name: resource_group
         value: $module.bp-iks-resource-group.outputs.resource_group_name
-        metatype: ibm_cloud_resource_group_name
     outputs:
       - name: blueprint_app_url
